@@ -16,34 +16,58 @@
                md."name",
                ds."name",
                d."recommended",
-               d."status",
-        FROM HOSPITAL.doctor d
-        JOIN HOSPITAL.MEDICAL_DEPT_USB_AND_DOCTOR sd ON sd."doctor_id" = d."id"
-        JOIN HOSPITAL.MEDICAL_DEPT_USB ds ON ds."dept_sub_id" = ds."id"
+               d."status"
+        FROM HOSPITAL.DOCTOR d
+        JOIN HOSPITAL.MEDICAL_DEPT_SUB_AND_DOCTOR sd ON sd."doctor_id" = d."id"
+        JOIN HOSPITAL.MEDICAL_DEPT_SUB ds ON sd."dept_sub_id" = ds."id"
         JOIN HOSPITAL.MEDICAL_DEPT md ON ds."dept_id" = md."id"
         WHERE 1=1
         <if test="name!=null">
             AND d."name" LIKE '%{name}%'
         </if>
         <if test="deptId!=null">
-            AND d."name" LIKE '%{deptId}%'
+            AND d."id" = ${deptId}
         </if>
         <if test="degree!=null">
-            AND d."name" LIKE '%{degree}%'
+            AND d."degree" = #{degree}
         </if>
         <if test="job!=null">
-            AND d."name" LIKE '%{job}%'
+            AND d."job" = #{job}
         </if>
         <if test="recommended!=null">
-            AND d."name" LIKE '%{recommended}%'
+            AND d."recommended" = ${recommended}
         </if>
-            AND d."name" LIKE '%{status}%'
+            AND d."status" = ${status}
         <if test="order!=null">
             ORDER BY md."id" ${order}
         </if>
-        LIMIT ${length} OFFSET #{start}
+            LIMIT ${length} OFFSET #{start}
     </select>
 
     <!--  分页查询数据量  -->
+    <select id="searchCount" parameterType="Map" resultType="long">
+        SELECT COUNT(*)
+        FROM HOSPITAL.DOCTOR d
+        JOIN HOSPITAL.MEDICAL_DEPT_SUB_AND_DOCTOR sd ON sd."doctor_id" = d."id"
+        JOIN HOSPITAL.MEDICAL_DEPT_SUB ds ON sd."dept_sub_id" = ds."id"
+        JOIN HOSPITAL.MEDICAL_DEPT md ON ds."dept_id" = md."id"
+        WHERE 1=1
+        <if test="name!=null">
+            AND d."name" LIKE '%{name}%'
+        </if>
+        <if test="deptId!=null">
+            AND d."id" = ${deptId}
+        </if>
+        <if test="degree!=null">
+            AND d."degree" = #{degree}
+        </if>
+        <if test="job!=null">
+            AND d."job" = #{job}
+        </if>
+        <if test="recommended!=null">
+            AND d."recommended" = $%{recommended}
+        </if>
+            AND d."status" = ${status}
+    </select>
 
 </mapper>
