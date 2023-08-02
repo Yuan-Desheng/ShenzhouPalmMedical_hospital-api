@@ -7,16 +7,16 @@
     <!--  分页查询数据  -->
     <select id="searchByPage" parameterType="Map" resultType="HashMap">
         SELECT d."id",
-               d."name",
-               d."sex",
-               d."tel",
-               d."school",
-               d."degree",
-               d."job",
-               md."name",
-               ds."name",
-               d."recommended",
-               d."status"
+        d."name",
+        d."sex",
+        d."tel",
+        d."school",
+        d."degree",
+        d."job",
+        md."name",
+        ds."name",
+        d."recommended",
+        d."status"
         FROM HOSPITAL.DOCTOR d
         JOIN HOSPITAL.MEDICAL_DEPT_SUB_AND_DOCTOR sd ON sd."doctor_id" = d."id"
         JOIN HOSPITAL.MEDICAL_DEPT_SUB ds ON sd."dept_sub_id" = ds."id"
@@ -37,11 +37,11 @@
         <if test="recommended!=null">
             AND d."recommended" = ${recommended}
         </if>
-            AND d."status" = ${status}
+        AND d."status" = ${status}
         <if test="order!=null">
             ORDER BY md."id" ${order}
         </if>
-            LIMIT ${length} OFFSET #{start}
+        LIMIT ${length} OFFSET #{start}
     </select>
 
     <!--  分页查询数据量  -->
