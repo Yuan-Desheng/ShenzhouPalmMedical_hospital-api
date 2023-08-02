@@ -10,6 +10,7 @@ public interface DoctorDao {
 
     public long searchCount(Map param);
 
+    public HashMap searchContent(int id);
 }
 
 
