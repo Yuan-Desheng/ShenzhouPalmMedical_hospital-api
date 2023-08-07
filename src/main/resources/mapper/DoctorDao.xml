@@ -80,7 +80,7 @@
                "remark",
                "tag",
                "address",
-               "description",
+               "description"
         FROM HOSPITAL.DOCTOR
         WHERE "id" = ${id}
     </select>
