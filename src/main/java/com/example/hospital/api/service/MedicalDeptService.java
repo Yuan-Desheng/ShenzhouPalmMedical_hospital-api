@@ -1,13 +1,8 @@
-package com.example.hospital.api.db.dao;
+package com.example.hospital.api.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public interface MedicalDeptDao {
+public interface MedicalDeptService {
     public ArrayList<HashMap> searchAll();
-
 }
-
-
-
-

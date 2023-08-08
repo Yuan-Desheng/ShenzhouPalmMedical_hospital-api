@@ -23,7 +23,7 @@
         JOIN HOSPITAL.MEDICAL_DEPT md ON ds."dept_id" = md."id"
         WHERE 1=1
         <if test="name!=null">
-            AND d."name" LIKE '%{name}%'
+            AND d."name" LIKE '%${name}%'
         </if>
         <if test="deptId!=null">
             AND d."id" = ${deptId}
@@ -53,7 +53,7 @@
         JOIN HOSPITAL.MEDICAL_DEPT md ON ds."dept_id" = md."id"
         WHERE 1=1
         <if test="name!=null">
-            AND d."name" LIKE '%{name}%'
+            AND d."name" LIKE '%${name}%'
         </if>
         <if test="deptId!=null">
             AND d."id" = ${deptId}
