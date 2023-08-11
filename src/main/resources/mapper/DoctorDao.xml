@@ -70,6 +70,7 @@
             AND d."status" = ${status}
     </select>
 
+    <!--  查询医生信息  -->
     <select id="searchContent" parameterType="int" resultType="HashMap">
         SELECT "photo",
                "pid",
@@ -81,12 +82,68 @@
                "tag",
                "address",
                "description"
-        FROM HOSPITAL.DOCTOR
+        FROM HOSPITAL.MEDICAAL
         WHERE "id" = ${id}
     </select>
 
+    <!--  修改头像  -->
     <update id="updatePhoto" parameterType="Map">
         UPSERT INTO HOSPITAL.DOCTOR("id","photo")
         VALUES (${id},#{photo})
     </update>
+
+    <!--    -->
+    <insert id="insert" parameterType="com.example.hospital.api.db.pojo.DoctorEntity">
+        UPSERT INTO HOSPITAL.DOCTOR(
+            "id",
+            "name",
+            "pid",
+            "uuid",
+            "sex",
+            "birthday",
+            "school",
+            "degree",
+            "tel",
+            "address",
+            "email",
+            "job",
+            "remark",
+            "description",
+            "hiredate",
+            "tag",
+            "recommended",
+            "status",
+            "create_time"
+        )
+        VALUES (
+            NEXT VALUE FOR HOSPITAL.DECTOR_SEQUENCE,
+                #{id},
+                #{name},
+                #{pid},
+                #{uuid},
+                #{sex},
+                TO_DATE('#{birthday}'),
+                #{school},
+                #{degree},
+                #{tel},
+                #{address},
+                #{email},
+                #{job},
+                #{remark},
+                #{description},
+                #{hiredate},
+                #{tag},
+                #{recommended},
+                #{status},
+                #{create_time},
+                NOW()
+        )
+    </insert>
+
+    <select id="searchIdByUuid" parameterType="String" resultType="Integer">
+        SELECT "id"
+        FROM HOSPITAL.DOCTOR
+        WHERE "uuid" = #{uuid}
+    </select>
+
 </mapper>
